@@ -1,0 +1,15 @@
+Vagrant.configure("2") do |config|
+  
+  config.vm.box = "bento/ubuntu-21.04"
+  config.vm.network "forwarded_port", guest: 80, host: 8080, id: "nginx"
+  config.vm.network "private_network", ip: "192.168.33.10"
+  config.vm.provider "virtualbox" do |vb|
+  #   # Display the VirtualBox GUI when booting the machine
+  #   vb.gui = true
+  #
+  #   # Customize the amount of memory on the VM:
+     vb.memory = "4198"
+     vb.name = "Singlemachine"
+   end
+
+end

@@ -1,0 +1,31 @@
+Vagrant.configure("2") do |config|
+
+  config.vm.box = "bento/ubuntu-21.04"
+
+  config.vm.define "m1" do |m1|
+     m1.vm.hostname  = "1server"
+	 m1.vm.network "private_network", ip: "172.32.0.91"
+	 m1.vm.provider "virtualbox" do |vb|
+	   vb.name = "1server"
+       m1.vm.provision "shell" , path: "jenkins-setup.sh"
+	 end
+  end
+  
+  config.vm.define "m2" do |m2|
+     m2.vm.hostname  = "2server"
+	 m2.vm.network "private_network", ip: "172.32.0.92"
+	 m2.vm.provider "virtualbox" do |vb|
+	   vb.name = "2server"
+	    m2.vm.provision "shell" , path: "nexus-setup.sh"
+	 end
+  end
+  config.vm.define "m3" do |m3|
+     m3.vm.hostname  = "3server"
+	 m3.vm.network "private_network", ip: "172.32.0.93"
+	 m3.vm.provider "virtualbox" do |vb|
+	   vb.name = "3server"
+	    m3.vm.provision "shell" , path: "sonar-setup.sh"
+	 end
+  end
+	config.vm.provision "shell",path: "docker.sh"
+end

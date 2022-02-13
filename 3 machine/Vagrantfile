@@ -8,6 +8,7 @@ Vagrant.configure("2") do |config|
 	 m1.vm.provider "virtualbox" do |vb|
 	   vb.name = "1server"
        m1.vm.provision "shell" , path: "jenkins-setup.sh"
+	m1.vm.provision "shell" ,path: "docker.sh"
 	 end
   end
   
@@ -17,6 +18,7 @@ Vagrant.configure("2") do |config|
 	 m2.vm.provider "virtualbox" do |vb|
 	   vb.name = "2server"
 	    m2.vm.provision "shell" , path: "nexus-setup.sh"
+	    m1.vm.provision "shell" ,path: "docker.sh"
 	 end
   end
   config.vm.define "m3" do |m3|
@@ -25,7 +27,8 @@ Vagrant.configure("2") do |config|
 	 m3.vm.provider "virtualbox" do |vb|
 	   vb.name = "3server"
 	    m3.vm.provision "shell" , path: "sonar-setup.sh"
+	 m1.vm.provision "shell" ,path: "docker.sh"
 	 end
   end
-	config.vm.provision "shell",path: "docker.sh"
+	
 end
